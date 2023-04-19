@@ -281,6 +281,28 @@ impl WithSmallOrderMulGroup<3> for Fq {
     const ZETA: Self = ZETA;
 }
 
+#[cfg(feature = "gpu")]
+impl ec_gpu::GpuName for Fq {
+    fn name() -> String {
+        ec_gpu::name!()
+    }
+}
+
+#[cfg(feature = "gpu")]
+impl ec_gpu::GpuField for Fq {
+    fn one() -> Vec<u32> {
+        crate::u64_to_u32(&R.0[..])
+    }
+
+    fn r2() -> Vec<u32> {
+        crate::u64_to_u32(&R2.0[..])
+    }
+
+    fn modulus() -> Vec<u32> {
+        crate::u64_to_u32(&MODULUS.0[..])
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;

@@ -1163,5 +1163,12 @@ macro_rules! new_curve_impl {
                 acc
             }
         }
+
+        #[cfg(feature = "gpu")]
+        impl ec_gpu::GpuName for $name_affine {
+            fn name() -> String {
+                ec_gpu::name!()
+            }
+        }
     };
 }

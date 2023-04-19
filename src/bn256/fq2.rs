@@ -574,6 +574,34 @@ pub const FROBENIUS_COEFF_FQ2_C1: [Fq; 2] = [
     ]),
 ];
 
+#[cfg(feature = "gpu")]
+impl ec_gpu::GpuName for Fq2 {
+    fn name() -> String {
+        ec_gpu::name!()
+    }
+}
+
+// Use `one`, `r2` and `modulus` from the sub-field.
+#[cfg(feature = "gpu")]
+impl ec_gpu::GpuField for Fq2 {
+    fn one() -> Vec<u32> {
+        <Fq as ec_gpu::GpuField>::one()
+    }
+
+    fn r2() -> Vec<u32> {
+        Fq::r2()
+    }
+
+    fn modulus() -> Vec<u32> {
+        Fq::modulus()
+    }
+
+    fn sub_field_name() -> Option<String> {
+        use ec_gpu::GpuName;
+        Some(Fq::name())
+    }
+}
+
 #[cfg(test)]
 use rand::SeedableRng;
 #[cfg(test)]
