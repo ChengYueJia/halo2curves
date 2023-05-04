@@ -579,6 +579,13 @@ pub const FROBENIUS_COEFF_FQ6_C2: [Fq2; 6] = [
     },
 ];
 
+#[cfg(feature = "gpu")]
+impl ec_gpu::GpuName for Fq6 {
+    fn name() -> String {
+        ec_gpu::name!()
+    }
+}
+
 #[cfg(test)]
 use rand::SeedableRng;
 #[cfg(test)]
